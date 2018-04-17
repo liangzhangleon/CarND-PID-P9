@@ -14,7 +14,7 @@ The goals / steps of this project are the following:
 ## Description for the effect of the P, I, D components
 * **P** stands for Proportional
 The proportional term produces an output value that is proportional to the current cross track error(CTE) value. The proportional response can be adjusted by multiplying the error by a constant K<sub>p</sub>.
-A large K<sub>p</sub> results in a large change in the output for a given change in CTE. If K<sub>p</sub> is too high, the system can become unstable (overshotting). In contrast, a small K<sub>p</sub> results in a small output response to a large CTE, and a less responsive or less sensitive controller. If K<sub>p</sub> is too low, the control action may be too small when responding to error changes.
+A large K<sub>p</sub> results in a large change in the output for a given change in CTE. If K<sub>p</sub> is too high, the system can become unstable (overshooting). In contrast, a small K<sub>p</sub> results in a small output response to a large CTE, and a less responsive or less sensitive controller. If K<sub>p</sub> is too low, the control action may be too small when responding to error changes.
 
 * **I** stands for Integral
 The contribution from the integral term is proportional to both the magnitude of CTE and the duration of CTE. The integral in a PID controller is the sum of the instantaneous error over time and gives the accumulated offset that should have been corrected previously. The accumulated error is then multiplied by K<sub>i</sub> and added to the controller output.
@@ -25,9 +25,9 @@ The derivative of the process error is calculated by determining the slope of th
 A derivative term does not consider the error (meaning it cannot bring it to zero: a pure D controller cannot bring the system to its reference value), but the rate of change of error, trying to bring this rate to zero. It aims at flattening the error trajectory and reduces overshoot.
 
 Note that I used the Wiki page ![PID controller][wiki] as a reference for this section.
-## How the final hyperparameters were chosen
-I manually tunned the hyperparameters.  The tunning process can be divided into two steps with respect to two different throttle values. In the following is the detailed description.
-* Step 1 (throttle = 0.3) : I first set  K<sub>i</sub> and K<sub>d</sub> values to zero. I then increase the K<sub>p</sub> until the car can drive for a short period with moderate overshotting. Then I set K<sub>p</sub> to approximately half of that value and start to tune K<sub>i</sub> untill the offset can be corrected on the road except sharp turns. Finally, I tuned K<sub>d</sub> to reduce overshots.  
+## How the final hyper-parameters were chosen
+I manually tunned the hyper-parameters.  The tunning process can be divided into two steps with respect to two different throttle values. In the following is the detailed description.
+* Step 1 (throttle = 0.3) : I first set  K<sub>i</sub> and K<sub>d</sub> values to zero. I then increase the K<sub>p</sub> until the car can drive for a short period with moderate overshooting. Then I set K<sub>p</sub> to approximately half of that value and start to tune K<sub>i</sub> until the offset can be corrected on the road except sharp turns. Finally, I tuned K<sub>d</sub> to reduce overshots.  
 
 Here is the list of parameters I tried.
 No. | P | I | D
