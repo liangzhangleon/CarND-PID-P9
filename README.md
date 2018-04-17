@@ -2,15 +2,29 @@
 **Author: Liang Zhang**
 Self-Driving Car Engineer Nanodegree Program
 
+[//]: # (References)
+[video]: ./result.ogv
+[wiki]: https://en.wikipedia.org/wiki/PID_controller
+
 The goals / steps of this project are the following:
 * implement PID control algorithm.
-* parameter tunning/optimization using twiddle or other methods.
+* parameter tunning/optimization using manual tunning, twiddle or other methods.
 * describe how the parameters are tuned.
 ---
 ## Description for the effect of the P, I, D components
+* **P** stands for Proportional
+The proportional term produces an output value that is proportional to the current cross track error(CTE) value. The proportional response can be adjusted by multiplying the error by a constant K<sub>p</sub>.
+A large K<sub>p</sub> results in a large change in the output for a given change in CTE. If K<sub>p</sub> is too high, the system can become unstable (overshotting). In contrast, a small K<sub>p</sub> results in a small output response to a large CTE, and a less responsive or less sensitive controller. If K<sub>p</sub> is too low, the control action may be too small when responding to error changes.
 
-* Record of a small video of the car in the simulator
+* **I** stands for Integral
+The contribution from the integral term is proportional to both the magnitude of CTE and the duration of CTE. The integral in a PID controller is the sum of the instantaneous error over time and gives the accumulated offset that should have been corrected previously. The accumulated error is then multiplied by K<sub>i</sub> and added to the controller output.
+The integral term accelerates the movement of the process towards reference value and eliminates the residual steady-state error that occurs with a pure proportional controller. However, since the integral term responds to accumulated errors from the past, it can cause the present value to overshoot the reference value.
 
+* **D** stands for Derivative
+The derivative of the process error is calculated by determining the slope of the error over time and multiplying this rate of change by the derivative gain K<sub>d</sub>. 
+A derivative term does not consider the error (meaning it cannot bring it to zero: a pure D controller cannot bring the system to its reference value), but the rate of change of error, trying to bring this rate to zero. It aims at flattening the error trajectory and reduces overshoot.
+
+Note that I used the Wiki page ![PID controller][wiki] as a reference for this section.
 ## How the final hyperparameters were chosen
 I manually tunned the hyperparameters.  The tunning process can be divided into two steps with respect to two different throttle values. In the following is the detailed description.
 * Step 1 (throttle = 0.3) : I first set  K<sub>i</sub> and K<sub>d</sub> values to zero. I then increase the K<sub>p</sub> until the car can drive for a short period with moderate overshotting. Then I set K<sub>p</sub> to approximately half of that value and start to tune K<sub>i</sub> untill the offset can be corrected on the road except sharp turns. Finally, I tuned K<sub>d</sub> to reduce overshots.  
@@ -47,8 +61,11 @@ No. | P | I | D
 7 | 0.08| 0.00025 | 2
 8 | 0.09| 0.00025 | 2
 9 | 0.1| 0.00025 | 2
-10 | 0.11| 0.00025 | 2
-11 | 0.115| 0.00025 | 2
+10 | 0.1| 0.00025 | 2.2
+## Result
+[//]: # (References)
+[video]: ./result.ogv
+![Link to the result video][video]
 
 ## Dependencies
 
