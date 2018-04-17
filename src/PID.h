@@ -1,6 +1,8 @@
 #ifndef PID_H
 #define PID_H
 
+#include <vector>
+
 class PID {
 public:
   /*
@@ -30,7 +32,7 @@ public:
   /*
   * Initialize PID.
   */
-  void Init(double Kp, double Ki, double Kd);
+  void Init(std::vector<double>& params);
 
   /*
   * Update the PID error variables given cross track error.
@@ -38,9 +40,9 @@ public:
   void UpdateError(double cte);
 
   /*
-  * Calculate the total PID error.
+  * Calculate the control output
   */
-  double TotalError();
+  double ComputeControl();
 };
 
 #endif /* PID_H */
