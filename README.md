@@ -30,6 +30,7 @@ I manually tunned the hyper-parameters.  The tunning process can be divided into
 * Step 1 (throttle = 0.3) : I first set  K<sub>i</sub> and K<sub>d</sub> values to zero. I then increase the K<sub>p</sub> until the car can drive for a short period with moderate overshooting. Then I set K<sub>p</sub> to approximately half of that value and start to tune K<sub>i</sub> until the offset can be corrected on the road except sharp turns. Finally, I tuned K<sub>d</sub> to reduce overshots.  
 
 Here is the list of parameters I tried.
+
 |No. | P | I | D |
 |:---:|:---:|:---:|:---:|
 | 1 | 0.001 | 0 | 0 | 
@@ -50,6 +51,7 @@ Here is the list of parameters I tried.
 * Step 2  (throttle = 0.6 * fabs(1 - fabs(cte))) : In this step, I increased the base value of throttle as 0.6. In addition, I added a parameter fabs(1 - fabs(cte)) to decrease throttle when the cross track error is large. For a larger throttle value, I found I need to increase K<sub>p</sub> and K<sub>i</sub> so that the reaction time for correcting offset is reasonable at sharp turns. 
 
 Here is the list of parameters I tried.
+
 |No. | P | I | D |
 |:---:|:---:|:---:|:---:|
 | 1 | 0.035 | 0.0002 | 4 |
